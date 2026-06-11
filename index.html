@@ -412,6 +412,32 @@
       .skill-grid { grid-template-columns: 1fr; }
       .big-number { display: none; }
       .swipe-hint { display: none; }
+      .slide-5 .body-text {
+    font-size: 0.9rem;
+    margin-top: 0.75rem;
+  }
+
+  .slide-5 .headline.lg {
+    font-size: clamp(1.8rem, 8vw, 2.5rem);
+    margin-bottom: 1rem;
+  }
+
+  .slide-5 .card {
+    padding: 0.75rem 1rem;
+  }
+
+  .slide-5 .card-title {
+    font-size: 0.75rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .slide-5 .ui-text {
+    font-size: 0.78rem;
+  }
+
+  .slide-5 .two-col > div:first-child {
+    display: none; /* optionally hide the paragraphs on very small screens to prioritize the cards */
+  }
     }
 
     @media (max-width: 480px) {
@@ -656,7 +682,6 @@
     <button class="dot"        role="tab" id="tab-4" aria-selected="false" aria-controls="panel-4" aria-label="Slide 5" data-index="4"></button>
     <button class="dot"        role="tab" id="tab-5" aria-selected="false" aria-controls="panel-5" aria-label="Slide 6" data-index="5"></button>
   </div>
-    <button class="nav-btn" id="nextBtn" aria-label="Next slide" title="Next">&#8594;</button>
 </nav>
 
 <!-- Slide panels -->
