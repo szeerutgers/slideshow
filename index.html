@@ -22,7 +22,7 @@
       --white:   #faf8f5;
 
       --font-display: 'Cormorant Garamond', Georgia, serif;
-      --font-ui:      'SUSE', sans-serif;
+      --font-ui:      'Syne', sans-serif;
       --font-mono:    'DM Mono', monospace;
 
       --slide-count: 6;
@@ -30,7 +30,9 @@
     }
 
     html, body {
+      width: 100%;
       height: 100%;
+      max-width: 100%;
       overflow: hidden;
       background: var(--ink);
       color: var(--ink);
@@ -40,7 +42,7 @@
     /* ── Slideshow Shell ── */
     .deck {
       position: relative;
-      width: 100vw;
+      width: 100%;
       height: 100dvh;
       overflow: hidden;
     }
@@ -53,11 +55,13 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: clamp(2rem, 6vw, 6rem);
+      padding: clamp(1.25rem, 6vw, 6rem);
+      padding-bottom: clamp(5rem, 10vw, 7rem); /* always clear nav */
       opacity: 0;
       pointer-events: none;
       transition: opacity var(--dur) ease, transform var(--dur) cubic-bezier(0.4, 0, 0.2, 1);
       transform: translateX(60px);
+      overflow: hidden;
     }
 
     .slide.active {
@@ -390,7 +394,7 @@
       z-index: 100;
     }
 
-    /* ── Swipe  ── */
+    /* ── Swipe hint ── */
     .swipe-hint {
       position: fixed;
       bottom: 5.5rem;
@@ -403,49 +407,54 @@
       color: var(--fog);
       opacity: 0.5;
       z-index: 100;
+      white-space: nowrap;
     }
 
-    /* ── Responsive ─── */
+    /* ── Responsive ── */
     @media (max-width: 700px) {
-      .two-col  { grid-template-columns: 1fr; gap: 2rem; }
-      .three-col { grid-template-columns: 1fr; }
-      .skill-grid { grid-template-columns: 1fr; }
+      .two-col    { grid-template-columns: 1fr; gap: 1.25rem; }
+      .three-col  { grid-template-columns: 1fr; gap: 0.75rem; }
+      .skill-grid { grid-template-columns: 1fr; gap: 0.75rem; }
       .big-number { display: none; }
       .swipe-hint { display: none; }
-      .slide-5 .body-text {
-    font-size: 0.9rem;
-    margin-top: 0.75rem;
-  }
 
-  .slide-5 .headline.lg {
-    font-size: clamp(1.8rem, 8vw, 2.5rem);
-    margin-bottom: 1rem;
-  }
+      .headline.xl { font-size: clamp(2.4rem, 11vw, 3.5rem); }
+      .headline.lg { font-size: clamp(1.8rem, 8vw, 2.8rem); margin-bottom: 0.75rem; }
 
-  .slide-5 .card {
-    padding: 0.75rem 1rem;
-  }
+      .eyebrow { margin-bottom: 0.5rem; }
 
-  .slide-5 .card-title {
-    font-size: 0.75rem;
-    margin-bottom: 0.35rem;
-  }
+      .initials-stamp { margin-bottom: 1.5rem; }
 
-  .slide-5 .ui-text {
-    font-size: 0.78rem;
-  }
+      .body-text { font-size: 0.95rem; line-height: 1.55; }
 
-  .slide-5 .two-col > div:first-child {
-    display: none; /* optionally hide the paragraphs on very small screens to prioritize the cards */
-  }
+      .ui-text { font-size: 0.82rem; line-height: 1.5; }
+
+      .card       { padding: 0.75rem 1rem; }
+      .card-light { padding: 0.75rem 1rem; }
+      .card-title { font-size: 0.75rem; margin-bottom: 0.3rem; }
+
+      /* Slide 2 — hide skill grid labels on very small screens */
+      .skill-grid { margin-top: 1rem; }
+
+      /* Slide 3 — tighten process cards */
+      .step-name { font-size: 0.85rem; margin-bottom: 0.25rem; }
+      .step-num  { margin-bottom: 0.25rem; }
+
+      /* Slide 5 — hide left-column copy, keep cards */
+      .slide-5 .two-col > div:first-child { display: none; }
+      .slide-5 .two-col > div:last-child  { gap: 0.5rem; }
+
+      /* Slide 4 bottom quote */
+      .slide-4 .body-text { margin-top: 1rem; }
     }
 
     @media (max-width: 480px) {
-      nav { bottom: 1.5rem; gap: 1rem; }
-      .counter { bottom: 1.5rem; right: 1.5rem; }
+      nav        { bottom: 1.25rem; gap: 0.75rem; }
+      .counter   { bottom: 1.25rem; right: 1rem; }
+      .slide     { padding-bottom: 4rem; }
     }
 
-    /* ── Slide-in animation on active ─── */
+    /* ── Slide-in animation on active ── */
     .slide.active .slide-inner > * {
       animation: fadeUp 0.6s ease both;
     }
@@ -465,19 +474,18 @@
 </head>
 <body>
 
-
-  <!-- ── Slide 1: Title / Hero ─── -->
-  <section class="slide slide-1 active" aria-label="Slide 1 of 6: Introduction">
+  <!-- ── Slide 1: Title / Hero ── -->
+  <section class="slide slide-1 active" id="panel-0" role="tabpanel" aria-labelledby="tab-0" aria-label="Slide 1 of 6: Introduction">
     <div class="bg-circle"></div>
     <div class="slide-inner">
-      <p class="initials-stamp">Shannon Ziemba </p>
+      <p class="initials-stamp">Shannon Ziemba</p>
       <p class="eyebrow">Marketing, Web Design &amp; Digital Strategy</p>
       <h1 class="headline xl">
         Your vision,<br>
         <em>brought to life.</em>
       </h1>
       <p class="body-text" style="max-width: 520px;">
-        I create websites that don't only look good...they work hard for your business &amp;
+        I create websites that don't just look good — they work hard for your business &amp;
         feel true to your brand from the first click.
       </p>
       <div style="margin-top: 2.5rem;">
@@ -490,7 +498,7 @@
   </section>
 
   <!-- ── Slide 2: Skills ── -->
-  <section class="slide slide-2" aria-label="Slide 2 of 6: Skills">
+  <section class="slide slide-2" id="panel-1" role="tabpanel" aria-labelledby="tab-1" aria-label="Slide 2 of 6: Skills">
     <div class="bg-circle"></div>
     <div class="slide-inner">
       <div class="two-col">
@@ -550,7 +558,7 @@
   </section>
 
   <!-- ── Slide 3: Process ── -->
-  <section class="slide slide-3" aria-label="Slide 3 of 6: My Process">
+  <section class="slide slide-3" id="panel-2" role="tabpanel" aria-labelledby="tab-2" aria-label="Slide 3 of 6: My Process">
     <div class="bg-circle"></div>
     <div class="slide-inner">
       <p class="eyebrow">How we work together</p>
@@ -583,8 +591,8 @@
     </div>
   </section>
 
-  <!-- ── Slide 4: Experience / What it's like ── -->
-  <section class="slide slide-4" aria-label="Slide 4 of 6: The Experience">
+  <!-- ── Slide 4: Experience ── -->
+  <section class="slide slide-4" id="panel-3" role="tabpanel" aria-labelledby="tab-3" aria-label="Slide 4 of 6: The Experience">
     <div class="slide-inner" style="position:relative;">
       <p class="eyebrow">What working with me feels like</p>
       <h2 class="headline lg" style="margin-bottom:2rem;">
@@ -602,7 +610,7 @@
           <p class="card-title" style="color:var(--rust);">Your feedback actually changes things</p>
           <p class="ui-text">
             Revisions are part of the process. I listen closely and iterate
-            until the result feels<em> genuine.</em>
+            until the result feels <em>genuine.</em>
           </p>
         </div>
       </div>
@@ -613,7 +621,7 @@
   </section>
 
   <!-- ── Slide 5: Why Zee ── -->
-  <section class="slide slide-5" aria-label="Slide 5 of 6: Why Choose Zee">
+  <section class="slide slide-5" id="panel-4" role="tabpanel" aria-labelledby="tab-4" aria-label="Slide 5 of 6: Why Choose Zee">
     <div class="bg-circle"></div>
     <div class="slide-inner">
       <p class="eyebrow" style="opacity:0.65;">Why clients choose me</p>
@@ -625,7 +633,7 @@
           <p class="body-text">
             When you hire a large agency, your project passes through many hands.
             When you hire me, you get a single trusted creative who holds the full context
-            of your brand from start to finish, and someone who actually cares about the outcome.
+            of your brand from start to finish — and someone who actually cares about the outcome.
           </p>
           <p class="body-text" style="margin-top:1.25rem;">
             My background spans marketing strategy, graphic design, and human-centered
@@ -652,7 +660,7 @@
   </section>
 
   <!-- ── Slide 6: CTA ── -->
-  <section class="slide slide-6" aria-label="Slide 6 of 6: Let's Work Together">
+  <section class="slide slide-6" id="panel-5" role="tabpanel" aria-labelledby="tab-5" aria-label="Slide 6 of 6: Let's Work Together">
     <div class="slide-inner" style="text-align:center; position:relative;">
       <p class="eyebrow" style="text-align:center;">Let's build something together</p>
       <div class="rule" style="margin: 0 auto 1.5rem;"></div>
@@ -671,113 +679,90 @@
     </div>
   </section>
 
-<!-- Navigation -->
-<nav aria-label="Slide navigation">
-  <button class="nav-btn" id="prevBtn" aria-label="Previous slide" title="Previous">&#8592;</button>
-  <div class="nav-dots" role="tablist" aria-label="Slide indicators">
-    <button class="dot active" role="tab" id="tab-0" aria-selected="true"  aria-controls="panel-0" aria-label="Slide 1" data-index="0"></button>
-    <button class="dot"        role="tab" id="tab-1" aria-selected="false" aria-controls="panel-1" aria-label="Slide 2" data-index="1"></button>
-    <button class="dot"        role="tab" id="tab-2" aria-selected="false" aria-controls="panel-2" aria-label="Slide 3" data-index="2"></button>
-    <button class="dot"        role="tab" id="tab-3" aria-selected="false" aria-controls="panel-3" aria-label="Slide 4" data-index="3"></button>
-    <button class="dot"        role="tab" id="tab-4" aria-selected="false" aria-controls="panel-4" aria-label="Slide 5" data-index="4"></button>
-    <button class="dot"        role="tab" id="tab-5" aria-selected="false" aria-controls="panel-5" aria-label="Slide 6" data-index="5"></button>
+  <!-- ── Navigation ── -->
+  <nav aria-label="Slide navigation">
+    <button class="nav-btn" id="prevBtn" aria-label="Previous slide" title="Previous">&#8592;</button>
+    <div class="nav-dots" role="tablist" aria-label="Slide indicators">
+      <button class="dot active" role="tab" id="tab-0" aria-selected="true"  aria-controls="panel-0" aria-label="Slide 1" data-index="0"></button>
+      <button class="dot"        role="tab" id="tab-1" aria-selected="false" aria-controls="panel-1" aria-label="Slide 2" data-index="1"></button>
+      <button class="dot"        role="tab" id="tab-2" aria-selected="false" aria-controls="panel-2" aria-label="Slide 3" data-index="2"></button>
+      <button class="dot"        role="tab" id="tab-3" aria-selected="false" aria-controls="panel-3" aria-label="Slide 4" data-index="3"></button>
+      <button class="dot"        role="tab" id="tab-4" aria-selected="false" aria-controls="panel-4" aria-label="Slide 5" data-index="4"></button>
+      <button class="dot"        role="tab" id="tab-5" aria-selected="false" aria-controls="panel-5" aria-label="Slide 6" data-index="5"></button>
+    </div>
+    <button class="nav-btn" id="nextBtn" aria-label="Next slide" title="Next">&#8594;</button>
+  </nav>
+
+  <div class="counter" aria-live="polite" aria-atomic="true">
+    <span id="currentSlide">01</span> / 06
   </div>
-  <button class="nav-btn" id="nextBtn" aria-label="Next slide" title="Next">&#8594;</button>
-</nav>
 
-<!-- Slide panels -->
-<div id="panel-0" role="tabpanel" aria-labelledby="tab-0">
-  <!-- Slide 1 content -->
-</div>
-<div id="panel-1" role="tabpanel" aria-labelledby="tab-1" hidden>
-  <!-- Slide 2 content -->
-</div>
-<div id="panel-2" role="tabpanel" aria-labelledby="tab-2" hidden>
-  <!-- Slide 3 content -->
-</div>
-<div id="panel-3" role="tabpanel" aria-labelledby="tab-3" hidden>
-  <!-- Slide 4 content -->
-</div>
-<div id="panel-4" role="tabpanel" aria-labelledby="tab-4" hidden>
-  <!-- Slide 5 content -->
-</div>
-<div id="panel-5" role="tabpanel" aria-labelledby="tab-5" hidden>
-  <!-- Slide 6 content -->
-</div>
-  <button class="nav-btn" id="nextBtn" aria-label="Next slide" title="Next">&#8594;</button>
+  <p class="swipe-hint" aria-hidden="true">← swipe or use arrow keys →</p>
 
+  <script>
+    (function () {
+      const slides  = Array.from(document.querySelectorAll('.slide'));
+      const dots    = Array.from(document.querySelectorAll('.dot'));
+      const counter = document.getElementById('currentSlide');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
 
-<div class="counter" aria-live="polite" aria-atomic="true">
-  <span id="currentSlide">01</span> / 06
-</div>
+      let current   = 0;
+      let animating = false;
 
-<p class="swipe-hint" aria-hidden="true">← swipe or use arrow keys →</p>
+      function goTo(next) {
+        if (animating || next === current) return;
+        animating = true;
 
-<script>
-  (function () {
-    const slides  = Array.from(document.querySelectorAll('.slide'));
-    const dots    = Array.from(document.querySelectorAll('.dot'));
-    const counter = document.getElementById('currentSlide');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
+        const prev = current;
+        current = (next + slides.length) % slides.length;
 
-    let current   = 0;
-    let animating = false;
+        slides[prev].classList.add('exit');
+        slides[prev].classList.remove('active');
+        slides[current].classList.add('active');
 
-    function goTo(next) {
-      if (animating || next === current) return;
-      animating = true;
+        dots.forEach((d, i) => {
+          d.classList.toggle('active', i === current);
+          d.setAttribute('aria-selected', i === current ? 'true' : 'false');
+        });
 
-      const prev = current;
-      current = (next + slides.length) % slides.length;
+        counter.textContent = String(current + 1).padStart(2, '0');
 
-      slides[prev].classList.add('exit');
-      slides[prev].classList.remove('active');
-      slides[current].classList.add('active');
+        setTimeout(() => {
+          slides[prev].classList.remove('exit');
+          animating = false;
+        }, 750);
+      }
 
-      dots.forEach((d, i) => {
-        d.classList.toggle('active', i === current);
-        d.setAttribute('aria-selected', i === current ? 'true' : 'false');
+      nextBtn.addEventListener('click', () => goTo(current + 1));
+      prevBtn.addEventListener('click', () => goTo(current - 1));
+
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => goTo(i));
       });
 
-      counter.textContent = String(current + 1).padStart(2, '0');
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(current + 1);
+        if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   goTo(current - 1);
+      });
 
-      setTimeout(() => {
-        slides[prev].classList.remove('exit');
-        animating = false;
-      }, 750);
-    }
+      let touchStartX = 0;
+      let touchStartY = 0;
 
-    nextBtn.addEventListener('click', () => goTo(current + 1));
-    prevBtn.addEventListener('click', () => goTo(current - 1));
+      document.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
 
-    dots.forEach((dot, i) => {
-      dot.addEventListener('click', () => goTo(i));
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown')  goTo(current + 1);
-      if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')    goTo(current - 1);
-    });
-
-    // Touch / swipe support
-    let touchStartX = 0;
-    let touchStartY = 0;
-
-    document.addEventListener('touchstart', (e) => {
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
-    }, { passive: true });
-
-    document.addEventListener('touchend', (e) => {
-      const dx = e.changedTouches[0].clientX - touchStartX;
-      const dy = e.changedTouches[0].clientY - touchStartY;
-      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
-        goTo(dx < 0 ? current + 1 : current - 1);
-      }
-    }, { passive: true });
-  })();
-</script>
+      document.addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        const dy = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+          goTo(dx < 0 ? current + 1 : current - 1);
+        }
+      }, { passive: true });
+    })();
+  </script>
 
 </body>
 </html>
